@@ -1,0 +1,59 @@
+{
+  "name": "@jimengio/rex-legacy",
+  "version": "0.0.4",
+  "description": "Data wrapper",
+  "main": "./lib/rex.js",
+  "types": "./lib/rex.d.ts",
+  "scripts": {
+    "format": "prettier src/*.tsx src/*/*.tsx rex/*.tsx  --write",
+    "compile": "tsc -d --jsx react rex/*.tsx --outDir lib/",
+    "dev": "webpack-dev-server --hot",
+    "watch": "webpack-dev-server --hot",
+    "release": "rm -rf dist/* && webpack --progress --config webpack.release.js",
+    "build": "yarn release",
+    "serve": "http-server dist/ -s",
+    "postinstall": "rm -rfv node_modules/@types/*/node_modules/@types/react"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/history": "^4.7.0",
+    "@types/lodash": "^4.14.116",
+    "@types/react": "16.0.31",
+    "@types/react-dom": "16.0.3",
+    "@types/shallowequal": "^0.2.3",
+    "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^1.0.0",
+    "emotion": "^9.2.10",
+    "file-loader": "^2.0.0",
+    "font-awesome": "^4.7.0",
+    "history": "^4.6.1",
+    "html-webpack-plugin": "^3.2.0",
+    "http-server": "^0.11.0",
+    "lodash": "^4.17.11",
+    "prettier": "^1.14.3",
+    "randomcolor": "^0.5.3",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
+    "ruled-router": "^0.2.2",
+    "style-loader": "^0.23.0",
+    "terser-webpack-plugin": "^1.1.0",
+    "typescript": "^3.1.1",
+    "typescript-styled-plugin": "^0.11.0",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.1",
+    "webpack-dev-server": "^3.1.9",
+    "webpack-hud": "^0.1.2"
+  },
+  "peerDependencies": {
+    "react": "16.0.0"
+  },
+  "dependencies": {
+    "immer": "^1.7.2",
+    "prop-types": "^15.6.2",
+    "shallowequal": "^1.1.0"
+  }
+}
