@@ -1,7 +1,7 @@
 import * as React from "react";
 import produce from "immer";
 import * as shallowequal from "shallowequal";
-import PropTypes from "prop-types";
+import * as PropTypes from "prop-types";
 
 function devPoint(...args) {
   // console.log(...args)
