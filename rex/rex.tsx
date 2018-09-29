@@ -1,21 +1,34 @@
 import * as React from "react";
 import produce from "immer";
 import * as shallowequal from "shallowequal";
+import PropTypes from "prop-types";
 
 function devPoint(...args) {
   // console.log(...args)
 }
-let RexContext = React.createContext(null);
 
 interface IRexProviderProps {
   value: any;
 }
 
 export class RexProvider extends React.Component<IRexProviderProps, any> {
+  getChildContext() {
+    return this.props.value;
+  }
   render() {
-    return <RexContext.Provider value={this.props.value}>{this.props.children}</RexContext.Provider>;
+    return this.props.children;
   }
 }
+
+let storeContextTypes = {
+  getState: PropTypes.func.isRequired,
+  subscribe: PropTypes.func.isRequired,
+  unsubscribe: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired,
+};
+
+(RexProvider as any).childContextTypes = storeContextTypes;
+
 interface IRexStore<T> {
   getState: () => T;
   subscribe: (f: (store: T) => void) => void;
@@ -113,20 +126,16 @@ class RexDataLayer extends React.Component<IRexDataLayerProps, IRexDataLayerStat
 
 export function connectRex<T>(selector: (s: T, ownProps?: any) => any): any {
   return (Target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-    return class RexContainer extends React.Component {
+    let RexContainer = class RexContainer extends React.Component {
       render() {
         devPoint("render interal");
-        return (
-          <RexContext.Consumer>
-            {(value: any) => {
-              let store = value as IRexStore<T>;
-              devPoint("consumer called");
+        let store = this.context as IRexStore<T>;
+        devPoint("consumer called");
 
-              return <RexDataLayer store={store} parentProps={this.props} Child={Target} selector={selector} />;
-            }}
-          </RexContext.Consumer>
-        );
+        return <RexDataLayer store={store} parentProps={this.props} Child={Target} selector={selector} />;
       }
     };
+    (RexContainer as any).contextTypes = storeContextTypes;
+    return RexContainer;
   };
 }
