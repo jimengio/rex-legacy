@@ -1,6 +1,6 @@
 {
   "name": "@jimengio/rex-legacy",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Data wrapper",
   "main": "./lib/rex.js",
   "types": "./lib/rex.d.ts",

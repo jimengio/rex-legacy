@@ -114,7 +114,7 @@ class RexDataLayer extends React.Component<IRexDataLayerProps, IRexDataLayerStat
     this.props.store.subscribe(this.onStoreChange);
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
     this.props.store.unsubscribe(this.onStoreChange);
   }
 
